@@ -28,6 +28,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -85,6 +86,7 @@ public class User implements Serializable {
     private int telefon;
     
     @Column (name = "EMAIL")
+    @Pattern(regexp = "^\\w+@\\w+\\..{2,3} (.{2,3})?$")
     @NotNull (message = "E-Mail-Adresse darf nicht leer sein.")
     private String email;
 
