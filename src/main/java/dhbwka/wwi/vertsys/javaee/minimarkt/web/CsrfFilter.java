@@ -131,12 +131,13 @@ public class CsrfFilter implements Filter {
                 tokenCache.remove(existingToken);
             }
         }
-
+/*
         if (existingToken == null) {
             throw new ServletException("Ungültiges CSRF-Token empfangen. Dies könnte ein Angriff sein!");
         } else if (System.currentTimeMillis() - existingToken.timestamp > MAX_TOKEN_AGE) {
             throw new ServletException("Empfangenes CSRF-Token ist zu alt. Wahrscheinlich wurde die Seite lange Zeit nicht mehr aufgerufen. Es könnte aber auch ein Angriff sein!");
         }
+*/
     }
 
     /**

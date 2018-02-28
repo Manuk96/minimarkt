@@ -76,7 +76,7 @@ public class User implements Serializable {
     @Column (name = "PLZ")
     @Pattern (regexp = "[0-9]{5}")
     @NotNull (message = "Postleitzahl darf nicht leer sein.")
-    private int plz;
+    private String plz;
     
     @Column (name = "ORT")
     @NotNull (message = "Ort darf nicht leer sein.")
@@ -85,18 +85,18 @@ public class User implements Serializable {
     @Column (name = "TELEFON")
     @Pattern (regexp = "[0-9]*")
     @NotNull (message = "Telefonnummer darf nicht leer sein.")
-    private int telefon;
+    private String telefon;
     
     @Column (name = "EMAIL")
     @Pattern(regexp = "^\\w+@\\w+\\..{2,3} (.{2,3})?$")
     @NotNull (message = "E-Mail-Adresse darf nicht leer sein.")
     private String email;
 
-    public int getTelefon() {
+    public String getTelefon() {
         return telefon;
     }
 
-    public void setTelefon(int telefon) {
+    public void setTelefon(String telefon) {
         this.telefon = telefon;
     }
 
@@ -124,11 +124,11 @@ public class User implements Serializable {
         this.anschrift = anschrift;
     }
 
-    public int getPlz() {
+    public String getPlz() {
         return plz;
     }
 
-    public void setPlz(int plz) {
+    public void setPlz(String plz) {
         this.plz = plz;
     }
 
@@ -154,7 +154,7 @@ public class User implements Serializable {
         this.passwordHash = this.hashPassword(password);
     }
     
-     public User(String username, String password, String vunname, String anschrift, int plz, String ort, int telefon, String email) {
+     public User(String username, String password, String vunname, String anschrift, String plz, String ort, String telefon, String email) {
         this.username = username;
         this.password.password = password;
         this.passwordHash = this.hashPassword(password);

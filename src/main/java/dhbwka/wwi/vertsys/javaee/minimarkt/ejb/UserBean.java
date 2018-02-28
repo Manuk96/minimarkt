@@ -44,7 +44,7 @@ public class UserBean {
      * @param password
      * @throws UserBean.UserAlreadyExistsException
      */
-    public void signup(String username, String password, String vunname, String anschrift, int plz, String ort, int telefon, String email) throws UserAlreadyExistsException {
+    public void signup(String username, String password, String vunname, String anschrift, String plz, String ort, String telefon, String email) throws UserAlreadyExistsException {
         if (em.find(User.class, username) != null) {
             throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", username));
         }
@@ -71,7 +71,7 @@ public class UserBean {
     }
     
     @RolesAllowed("minimarkt-app-user")
-    public void changeBenutzerdaten (User user, String vunname, String anschrift, int plz, String ort, int telefon, String email) {
+    public void changeBenutzerdaten (User user, String vunname, String anschrift, String plz, String ort, String telefon, String email) {
         user.setVunname(vunname);
         user.setAnschrift(anschrift);
         user.setPlz(plz);
