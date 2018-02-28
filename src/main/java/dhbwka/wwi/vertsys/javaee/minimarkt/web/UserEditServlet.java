@@ -44,8 +44,8 @@ public class UserEditServlet extends HttpServlet{
     
     HttpSession session = request.getSession();
 
-    User user = this.getRequestedUser(request);
-        request.setAttribute("edit", user.getId() != 0);
+    User user = this.userBean.getCurrentUser();
+        request.setAttribute("edit", user.getUsername() != null);
                                 
         if (session.getAttribute("user_form") == null) {
             // Keine Formulardaten mit fehlerhaften Daten in der Session,
@@ -92,38 +92,69 @@ public class UserEditServlet extends HttpServlet{
 
         User user = this.userBean.getCurrentUser();
         
-        user.set
+        user.setVunname(vunname);
+        user.setAnschrift(anschrift);
+        user.setPlz(plz);
+        user.setOrt(ort);
+        user.setTelefon(telefon);
+        user.setEmail(email);
+        
+        this.validationBean.validate(user, errors);
+        
+        if (errors.isEmpty()) {
+            this.userBean.update(user);
+        }
+
+        // Weiter zur nächsten Seite
+        if (errors.isEmpty()) {
+            // Keine Fehler: Startseite aufrufen
+            response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/"));
+        } else {
+            // Fehler: Formuler erneut anzeigen
+            FormValues formValues = new FormValues();
+            formValues.setValues(request.getParameterMap());
+            formValues.setErrors(errors);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("user_form", formValues);
+
+            response.sendRedirect(request.getRequestURI());
+        }
+        
+        
+        
+      
     }
     
-    private FormValues createUserForm(Task task) {
+    private FormValues createUserForm(User user) {
         Map<String, String[]> values = new HashMap<>();
 
         values.put("task_owner", new String[]{
-            task.getOwner().getUsername()
+            user.getUsername()
         });
 
         values.put("edit_vunname_text", new String[]{
-            task.getOwner().getUsername()
+            user.getVunname()
         });
         
         values.put("edit_anschrift_text", new String[]{
-            task.getOwner().getUsername()
+            user.getAnschrift()
         });
         
         values.put("edit_plz_text", new String[]{
-            task.getOwner().getUsername()
+            user.getPlz()
         });
 
         values.put("edit_ort_text", new String[]{
-            task.getOwner().getUsername()
+            user.getOrt()
         });
         
         values.put("edit_telefon_text", new String[]{
-            task.getOwner().getUsername()
+            user.getTelefon()
         });
         
         values.put("edit_email_text", new String[]{
-            task.getOwner().getUsername()
+            user.getEmail()
         });
         
         FormValues formValues = new FormValues();
@@ -131,34 +162,5 @@ public class UserEditServlet extends HttpServlet{
         return formValues;
     }
     
-    private User getRequestedUser(HttpServletRequest request) {
-        // Zunächst davon ausgehen, dass ein neuer Satz angelegt werden soll
-        User user = userBean.getCurrentUser();
-        user.setUsername(this.userBean.getCurrentUser());
-        task.setDueDate(new Date(System.currentTimeMillis()));
-        task.setDueTime(new Time(System.currentTimeMillis()));
-
-        // ID aus der URL herausschneiden
-        String taskId = request.getPathInfo();
-
-        if (taskId == null) {
-            taskId = "";
-        }
-
-        taskId = taskId.substring(1);
-
-        if (taskId.endsWith("/")) {
-            taskId = taskId.substring(0, taskId.length() - 1);
-        }
-
-        // Versuchen, den Datensatz mit der übergebenen ID zu finden
-        try {
-            task = this.taskBean.findById(Long.parseLong(taskId));
-        } catch (NumberFormatException ex) {
-            // Ungültige oder keine ID in der URL enthalten
-        }
-
-        return task;
-    }
 
 }
