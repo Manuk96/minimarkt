@@ -61,9 +61,9 @@ public class SignUpServlet extends HttpServlet {
         String password2 = request.getParameter("signup_password2");
         String vunname = request.getParameter("signup_vunname");
         String anschrift = request.getParameter("signup_anschrift");
-        int plz = Integer.parseInt(request.getParameter("signup_plz"));
+        String plz = request.getParameter("signup_plz");
         String ort = request.getParameter("signup_ort");
-        int telefon = Integer.parseInt(request.getParameter("signup_telefon"));
+        String telefon =request.getParameter("signup_telefon");
         String email = request.getParameter("signup_email");
                                                 
                                                 
