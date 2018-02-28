@@ -74,6 +74,7 @@ public class User implements Serializable {
     private String anschrift;
     
     @Column (name = "PLZ")
+    @Pattern (regexp = "[0-9]{5}")
     @NotNull (message = "Postleitzahl darf nicht leer sein.")
     private int plz;
     
@@ -82,6 +83,7 @@ public class User implements Serializable {
     private String ort;
     
     @Column (name = "TELEFON")
+    @Pattern (regexp = "[0-9]*")
     @NotNull (message = "Telefonnummer darf nicht leer sein.")
     private int telefon;
     
