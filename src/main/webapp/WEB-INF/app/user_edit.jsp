@@ -19,7 +19,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/task_edit.css"/>" />
+        <link rel="stylesheet" href="<c:url value="/css/user_edit.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -37,7 +37,7 @@
                 <%-- Eingabefelder --%>
                 <label for="task_owner">Eigentümer:</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
+                    <input type="text" name="task_owner" value="${user_form.values["task_owner"][0]}" readonly="readonly">
                 </div>
 
                 <label for="edit_vunname">Name:</label>
