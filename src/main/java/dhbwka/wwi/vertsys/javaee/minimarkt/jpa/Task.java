@@ -38,20 +38,25 @@ public class Task implements Serializable {
     private long id;
 
     @ManyToOne
-    @NotNull(message = "Die Aufgabe muss einem Benutzer geordnet werden.")
+    @NotNull(message = "Die Anzeige muss einem Benutzer geordnet werden.")
     private User owner;
 
     @ManyToOne
     private Category category;
 
     @Column(length = 50)
-    @NotNull(message = "Die Bezeichnung darf nicht leer sein.")
-    @Size(min = 1, max = 50, message = "Die Bezeichnung muss zwischen ein und 50 Zeichen lang sein.")
+    @NotNull(message = "Der Titel darf nicht leer sein.")
+    @Size(min = 1, max = 50, message = "Der Titel muss zwischen ein und 50 Zeichen lang sein.")
     private String shortText;
 
     @Lob
     @NotNull
     private String longText;
+    
+    @NotNull(message = "Der Preis darf nicht leer sein.")
+    private int preis;
+    
+    
 
     @NotNull(message = "Das Datum darf nicht leer sein.")
     private Date dueDate;

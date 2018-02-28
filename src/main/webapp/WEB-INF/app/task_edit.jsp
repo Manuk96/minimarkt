@@ -42,7 +42,7 @@
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
 
                 <%-- Eingabefelder --%>
-                <label for="task_owner">Eigentümer:</label>
+                <label for="task_owner">Ersteller</label>
                 <div class="side-by-side">
                     <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
                 </div>
@@ -59,44 +59,51 @@
                         </c:forEach>
                     </select>
                 </div>
-
-                <label for="task_due_date">
-                    Fällig am:
-                    <span class="required">*</span>
-                </label>
+                <label for="task_type">Art</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_due_date" value="${task_form.values["task_due_date"][0]}">
-                    <input type="text" name="task_due_time" value="${task_form.values["task_due_time"][0]}">
+                    <select name="task_type">
+                        <option value="">Keine Art</option>
+                        <option value="sell">Biete an</option>
+                        <option value="buy">suche</option>
+                    </select>
                 </div>
-
-                <label for="task_status">
-                    Status:
-                    <span class="required">*</span>
-                </label>
-                <div class="side-by-side margin">
-                    <select name="task_status">
-                        <c:forEach items="${statuses}" var="status">
-                            <option value="${status}" ${task_form.values["task_status"][0] == status ? 'selected' : ''}>
-                                <c:out value="${status.label}"/>
-                            </option>
-                        </c:forEach>
+                <label for="task_title">Titel</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_title" value="${task_form.values["task_title"][0]}" ">
+                </div>
+                
+                                
+                   
+                <label for="task_beschreibung">Beschreibung</label>
+                <div class="side-by-side">
+                    <textarea name="task_beschreibung"><c:out value="${task_form.values['task_beschreibung'][0]}"/></textarea>
+                </div>
+                
+                 </div>
+                <label for="task_price">Preis in €</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_price" value="${task_form.values["task_price"][0]}" ">
+                </div>
+                
+                                </div>
+                <label for="task_preis">Preisart</label>
+                <div class="side-by-side">
+                    <select name="task_preis">
+                        <option value="">Keine Angabe</option>
+                        <option value="vb">Verhandlungsbasis</option>
+                        <option value="fp">Festpreis</option>
                     </select>
                 </div>
 
-                <label for="task_short_text">
-                    Bezeichnung:
+                <label for="task_due_date">
+                    Erstellt am:
                     <span class="required">*</span>
                 </label>
                 <div class="side-by-side">
-                    <input type="text" name="task_short_text" value="${task_form.values["task_short_text"][0]}">
+                    <input type="text" name="task_due_date" value="${task_form.values["task_due_date"][0]}" readonly="readonly">
+                    <input type="text" name="task_due_time" value="${task_form.values["task_due_time"][0]}" readonly="readonly">
                 </div>
 
-                <label for="task_long_text">
-                    Beschreibung:
-                </label>
-                <div class="side-by-side">
-                    <textarea name="task_long_text"><c:out value="${task_form.values['task_long_text'][0]}"/></textarea>
-                </div>
 
                 <%-- Button zum Abschicken --%>
                 <div class="side-by-side">
