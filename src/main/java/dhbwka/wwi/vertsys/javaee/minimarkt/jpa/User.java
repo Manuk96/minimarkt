@@ -63,6 +63,79 @@ public class User implements Serializable {
     )
     @Column(name = "GROUPNAME")
     List<String> groups = new ArrayList<>();
+    
+    @Column (name = "VUNNAME")
+    @NotNull(message = "Vor- und Nachname darf nicht leer sein.")
+    private String vunname;
+    
+    @Column (name = "ANSCHRIFT")
+    @NotNull (message = "Straße und Hausnummer dürfen nicht leer sein.")
+    private String anschrift;
+    
+    @Column (name = "PLZ")
+    @NotNull (message = "Postleitzahl darf nicht leer sein.")
+    private int plz;
+    
+    @Column (name = "ORT")
+    @NotNull (message = "Ort darf nicht leer sein.")
+    private String ort;
+    
+    @Column (name = "TELEFON")
+    @NotNull (message = "Telefonnummer darf nicht leer sein.")
+    private int telefon;
+    
+    @Column (name = "EMAIL")
+    @NotNull (message = "E-Mail-Adresse darf nicht leer sein.")
+    private String email;
+
+    public int getTelefon() {
+        return telefon;
+    }
+
+    public void setTelefon(int telefon) {
+        this.telefon = telefon;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getVunname() {
+        return vunname;
+    }
+
+    public void setVunname(String vunname) {
+        this.vunname = vunname;
+    }
+
+    public String getAnschrift() {
+        return anschrift;
+    }
+
+    public void setAnschrift(String anschrift) {
+        this.anschrift = anschrift;
+    }
+
+    public int getPlz() {
+        return plz;
+    }
+
+    public void setPlz(int plz) {
+        this.plz = plz;
+    }
+
+    public String getOrt() {
+        return ort;
+    }
+
+    public void setOrt(String ort) {
+        this.ort = ort;
+    }
+    
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     List<Task> tasks = new ArrayList<>();
@@ -75,6 +148,18 @@ public class User implements Serializable {
         this.username = username;
         this.password.password = password;
         this.passwordHash = this.hashPassword(password);
+    }
+    
+     public User(String username, String password, String vunname, String anschrift, int plz, String ort, int telefon, String email) {
+        this.username = username;
+        this.password.password = password;
+        this.passwordHash = this.hashPassword(password);
+        this.vunname = vunname;
+        this.anschrift = anschrift;
+        this.plz = plz;
+        this.ort = ort;
+        this.telefon = telefon;
+        this.email = email;
     }
     //</editor-fold>
 
