@@ -11,7 +11,6 @@ package dhbwka.wwi.vertsys.javaee.minimarkt.ejb;
 
 import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.Category;
 import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.Task;
-import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.TaskStatus;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -52,7 +51,7 @@ public class TaskBean extends EntityBean<Task, Long> {
      * @param status Status (optional)
      * @return Liste mit den gefundenen Aufgaben
      */
-    public List<Task> search(String search, Category category, TaskStatus status) {
+    public List<Task> search(String search, Category category) {
         // Hilfsobjekt zum Bauen des Query
         CriteriaBuilder cb = this.em.getCriteriaBuilder();
         
@@ -73,11 +72,7 @@ public class TaskBean extends EntityBean<Task, Long> {
         if (category != null) {
             query.where(cb.equal(from.get("category"), category));
         }
-        
-        // WHERE t.status = :status
-        if (status != null) {
-            query.where(cb.equal(from.get("status"), status));
-        }
+
         
         return em.createQuery(query).getResultList();
     }

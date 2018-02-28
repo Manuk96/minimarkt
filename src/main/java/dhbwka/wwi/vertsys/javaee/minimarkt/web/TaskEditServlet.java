@@ -14,7 +14,8 @@ import dhbwka.wwi.vertsys.javaee.minimarkt.ejb.TaskBean;
 import dhbwka.wwi.vertsys.javaee.minimarkt.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.minimarkt.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.Task;
-import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.TaskStatus;
+import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.AdvertType;
+import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.PriceType;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
@@ -54,7 +55,6 @@ public class TaskEditServlet extends HttpServlet {
 
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
-        request.setAttribute("statuses", TaskStatus.values());
 
         // Zu bearbeitende Aufgabe einlesen
         HttpSession session = request.getSession();
@@ -114,7 +114,6 @@ public class TaskEditServlet extends HttpServlet {
         String taskCategory = request.getParameter("task_category");
         String taskDueDate = request.getParameter("task_due_date");
         String taskDueTime = request.getParameter("task_due_time");
-        String taskStatus = request.getParameter("task_status");
         String taskShortText = request.getParameter("task_short_text");
         String taskLongText = request.getParameter("task_long_text");
 
@@ -143,11 +142,11 @@ public class TaskEditServlet extends HttpServlet {
             errors.add("Die Uhrzeit muss dem Format hh:mm:ss entsprechen.");
         }
 
-        try {
-            task.setStatus(TaskStatus.valueOf(taskStatus));
-        } catch (IllegalArgumentException ex) {
-            errors.add("Der ausgewählte Status ist nicht vorhanden.");
-        }
+       // try {
+         //   task.setStatus(TaskStatus.valueOf(taskStatus));
+       // } catch (IllegalArgumentException ex) {
+         //   errors.add("Der ausgewählte Status ist nicht vorhanden.");
+        //}
 
         task.setShortText(taskShortText);
         task.setLongText(taskLongText);
@@ -264,8 +263,8 @@ public class TaskEditServlet extends HttpServlet {
             WebUtils.formatTime(task.getDueTime())
         });
 
-        values.put("task_status", new String[]{
-            task.getStatus().toString()
+        values.put("task_adtype", new String[]{
+            task.getAdtype().toString()
         });
 
         values.put("task_short_text", new String[]{

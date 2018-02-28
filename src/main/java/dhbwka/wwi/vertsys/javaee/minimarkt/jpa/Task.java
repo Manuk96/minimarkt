@@ -54,29 +54,36 @@ public class Task implements Serializable {
     private String longText;
     
     @NotNull(message = "Der Preis darf nicht leer sein.")
-    private int preis;
+    private int price;
     
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private AdvertType adtype = AdvertType.NONE;
     
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private PriceType pricetype = PriceType.NONE;
 
     @NotNull(message = "Das Datum darf nicht leer sein.")
     private Date dueDate;
 
     @NotNull(message = "Die Uhrzeit darf nicht leer sein.")
     private Time dueTime;
-
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private TaskStatus status = TaskStatus.OPEN;
-
+    
+    
+    
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Task() {
     }
 
-    public Task(User owner, Category category, String shortText, String longText, Date dueDate, Time dueTime) {
+    public Task(User owner, Category category, AdvertType adtype, String shortText, String longText, int price, PriceType pricetype, Date dueDate, Time dueTime) {
         this.owner = owner;
         this.category = category;
+        this.adtype = adtype;
         this.shortText = shortText;
         this.longText = longText;
+        this.price = price;
+        this.pricetype = pricetype;
         this.dueDate = dueDate;
         this.dueTime = dueTime;
     }
@@ -139,13 +146,30 @@ public class Task implements Serializable {
         this.dueTime = dueTime;
     }
 
-    public TaskStatus getStatus() {
-        return status;
+    public int getPrice() {
+        return price;
     }
 
-    public void setStatus(TaskStatus status) {
-        this.status = status;
+    public void setPrice(int price) {
+        this.price = price;
     }
-    //</editor-fold>
+
+    public AdvertType getAdtype() {
+        return adtype;
+    }
+
+    public void setAdtype(AdvertType adtype) {
+        this.adtype = adtype;
+    }
+
+    public PriceType getPricetype() {
+        return pricetype;
+    }
+
+    public void setPricetype(PriceType pricetype) {
+        this.pricetype = pricetype;
+    }
+    
+    
 
 }
