@@ -26,14 +26,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"app/users/"})
+@WebServlet(urlPatterns = {"/user_edit/"})
 public class UserEditServlet extends HttpServlet{
     
     @EJB 
-    ValidationBean validationBean;
+    private ValidationBean validationBean;
     
     @EJB
-    UserBean userBean;
+    private UserBean userBean;
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,10 +47,10 @@ public class UserEditServlet extends HttpServlet{
     if (session.getAttribute("user_form") == null) {
         request.setAttribute("user_form", this.createUserForm(user));
     }
-                              
-        request.getRequestDispatcher("/WEB-INF/app/user_edit.jsp").forward(request, response);
+    
+    request.getRequestDispatcher("/WEB-INF/app/user_edit.jsp").forward(request, response);
 
-        session.removeAttribute("user_form");
+    session.removeAttribute("user_form");
     }
             
     @Override
