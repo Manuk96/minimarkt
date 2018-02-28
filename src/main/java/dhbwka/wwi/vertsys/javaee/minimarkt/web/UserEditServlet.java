@@ -11,11 +11,8 @@ package dhbwka.wwi.vertsys.javaee.minimarkt.web;
 
 import dhbwka.wwi.vertsys.javaee.minimarkt.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.minimarkt.ejb.UserBean;
-import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.Task;
 import dhbwka.wwi.vertsys.javaee.minimarkt.jpa.User;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/useredit/"})
+@WebServlet(urlPatterns = {"app/users/"})
 public class UserEditServlet extends HttpServlet{
     
     @EJB 
@@ -45,15 +42,12 @@ public class UserEditServlet extends HttpServlet{
     HttpSession session = request.getSession();
 
     User user = this.userBean.getCurrentUser();
-        request.setAttribute("edit", user.getUsername() != null);
-                                
-        if (session.getAttribute("user_form") == null) {
-            // Keine Formulardaten mit fehlerhaften Daten in der Session,
-            // daher Formulardaten aus dem Datenbankobjekt übernehmen
-            request.setAttribute("user_form", this.createUserForm(user));
-        }
-
-        // Anfrage an die JSP weiterleiten
+    
+    
+    if (session.getAttribute("user_form") == null) {
+        request.setAttribute("user_form", this.createUserForm(user));
+    }
+                              
         request.getRequestDispatcher("/WEB-INF/app/user_edit.jsp").forward(request, response);
 
         session.removeAttribute("user_form");
