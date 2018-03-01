@@ -24,7 +24,7 @@
 
     <jsp:attribute name="menu">
         <div class="menuitem">
-            <a href="<c:url value="/app/task/new/"/>">Aufgabe anlegen</a>
+            <a href="<c:url value="/app/task/new/"/>">Anzeige anlegen</a>
         </div>
 
         <div class="menuitem">
@@ -32,7 +32,7 @@
         </div>
         
         <div class="menuitem">
-            <a href="<c:url value="/app/user_edit/"/>">Benutzerdaten bearbeiten</a>
+            <a href="<c:url value="/user_edit/"/>">Benutzerdaten bearbeiten</a>
         </div>
     </jsp:attribute>
 
@@ -60,7 +60,7 @@
         <c:choose>
             <c:when test="${empty tasks}">
                 <p>
-                    Es wurden keine Aufgaben gefunden. 🐈
+                    Es wurden keine Anzeigen gefunden. 🐈
                 </p>
             </c:when>
             <c:otherwise>
@@ -72,7 +72,7 @@
                             <th>Bezeichnung</th>
                             <th>Kategorie</th>
                             <th>Eigentümer</th>
-                            <th>Fällig am</th>
+                            <th>Erstellt am</th>
                         </tr>
                     </thead>
                     <c:forEach items="${tasks}" var="task">
