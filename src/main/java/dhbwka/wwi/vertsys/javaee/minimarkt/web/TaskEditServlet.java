@@ -124,6 +124,8 @@ public class TaskEditServlet extends HttpServlet {
         
         Task task = this.getRequestedTask(request);
 
+        
+
         if (taskCategory != null && !taskCategory.trim().isEmpty()) {
             try {
                 task.setCategory(this.categoryBean.findById(Long.parseLong(taskCategory)));
@@ -134,7 +136,12 @@ public class TaskEditServlet extends HttpServlet {
 
         Date dueDate = WebUtils.parseDate(taskDueDate);
         Time dueTime = WebUtils.parseTime(taskDueTime);
-
+        
+        
+        if (task.getOwner() != userBean.getCurrentUser()) {
+            errors.add("Sie sind nicht der Ersteller dieser Anzeige.");
+        }
+        
         if (dueDate != null) {
             task.setDueDate(dueDate);
         } else {
@@ -146,7 +153,8 @@ public class TaskEditServlet extends HttpServlet {
         } else {
             errors.add("Die Uhrzeit muss dem Format hh:mm:ss entsprechen.");
         }
-
+        
+        
        try {
           task.setAdtype(AdvertType.valueOf(taskAdtype));
         } catch (IllegalArgumentException ex) {
@@ -162,31 +170,38 @@ public class TaskEditServlet extends HttpServlet {
        task.setPrice(taskPrice);
        task.setShortText(taskShortText);
        task.setLongText(taskLongText);
-
+       
+       
+     
         this.validationBean.validate(task, errors);
 
         // Datensatz speichern
         if (errors.isEmpty()) {
             this.taskBean.update(task);
         }
-
+    
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {
             // Keine Fehler: Startseite aufrufen
             response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/"));
         } else {
-            // Fehler: Formuler erneut anzeigen
-            FormValues formValues = new FormValues();
-            formValues.setValues(request.getParameterMap());
-            formValues.setErrors(errors);
-
+            FormValues formValues1 = new FormValues();
+            formValues1.setValues(request.getParameterMap());
+            formValues1.setErrors(errors);
             HttpSession session = request.getSession();
-            session.setAttribute("task_form", formValues);
-
+            session.setAttribute("errors", errors);
+            session.setAttribute("task_form", formValues1);              
             response.sendRedirect(request.getRequestURI());
+            
         }
     }
 
+    
+    public boolean isNotOwner (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+         Task task = this.getRequestedTask(request);
+         return task.getOwner() != userBean.getCurrentUser();
+    }
     /**
      * Aufgerufen in doPost: Vorhandene Aufgabe löschen
      *

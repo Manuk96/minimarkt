@@ -103,7 +103,7 @@
                  </div>
                 <label for="task_price">Preis in €</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_price" value="${task_form.values["task_price"][0]}" ">
+                    <input type="text" name="task_price" value="${task_form.values["task_price"][0]}">
                 </div>
                 
                 <label for="task_price_type">Preisart</label>

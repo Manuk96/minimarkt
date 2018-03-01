@@ -73,6 +73,7 @@
                             <th>Kategorie</th>
                             <th>Eigentümer</th>
                             <th>Erstellt am</th>
+                            <th>Preis in €</th>
                         </tr>
                     </thead>
                     <c:forEach items="${tasks}" var="task">
@@ -91,6 +92,9 @@
                             <td>
                                 <c:out value="${utils.formatDate(task.dueDate)}"/>
                                 <c:out value="${utils.formatTime(task.dueTime)}"/>
+                            </td>
+                            <td>
+                                <c:out value="${task.price}"/>
                             </td>
                         </tr>
                     </c:forEach>
