@@ -51,16 +51,6 @@
                 </c:forEach>
             </select>
 
-            <select name="search_status">
-                <option value="">Alle Stati</option>
-
-                <c:forEach items="${statuses}" var="status">
-                    <option value="${status}" ${param.search_status == status ? 'selected' : ''}>
-                        <c:out value="${status.label}"/>
-                    </option>
-                </c:forEach>
-            </select>
-
             <button class="icon-search" type="submit">
                 Suchen
             </button>
@@ -82,7 +72,6 @@
                             <th>Bezeichnung</th>
                             <th>Kategorie</th>
                             <th>Eigentümer</th>
-                            <th>Status</th>
                             <th>Fällig am</th>
                         </tr>
                     </thead>
@@ -98,9 +87,6 @@
                             </td>
                             <td>
                                 <c:out value="${task.owner.username}"/>
-                            </td>
-                            <td>
-                                <c:out value="${task.status.label}"/>
                             </td>
                             <td>
                                 <c:out value="${utils.formatDate(task.dueDate)}"/>

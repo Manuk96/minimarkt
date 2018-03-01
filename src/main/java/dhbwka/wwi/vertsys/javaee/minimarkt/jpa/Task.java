@@ -22,6 +22,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -54,7 +55,8 @@ public class Task implements Serializable {
     private String longText;
     
     @NotNull(message = "Der Preis darf nicht leer sein.")
-    private int price;
+    @Pattern (regexp = "[0-9]*", message = "Der Preis muss numerisch sein.")
+    private String price;
     
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -76,7 +78,7 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public Task(User owner, Category category, AdvertType adtype, String shortText, String longText, int price, PriceType pricetype, Date dueDate, Time dueTime) {
+    public Task(User owner, Category category, AdvertType adtype, String shortText, String longText, String price, PriceType pricetype, Date dueDate, Time dueTime) {
         this.owner = owner;
         this.category = category;
         this.adtype = adtype;
@@ -146,11 +148,11 @@ public class Task implements Serializable {
         this.dueTime = dueTime;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

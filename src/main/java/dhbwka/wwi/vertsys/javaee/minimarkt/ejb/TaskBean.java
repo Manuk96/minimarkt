@@ -48,7 +48,6 @@ public class TaskBean extends EntityBean<Task, Long> {
      * 
      * @param search In der Kurzbeschreibung enthaltener Text (optional)
      * @param category Kategorie (optional)
-     * @param status Status (optional)
      * @return Liste mit den gefundenen Aufgaben
      */
     public List<Task> search(String search, Category category) {

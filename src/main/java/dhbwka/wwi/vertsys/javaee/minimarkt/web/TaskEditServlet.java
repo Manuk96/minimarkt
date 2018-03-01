@@ -55,6 +55,8 @@ public class TaskEditServlet extends HttpServlet {
 
         // Verfügbare Kategorien und Stati für die Suchfelder ermitteln
         request.setAttribute("categories", this.categoryBean.findAllSorted());
+        request.setAttribute("adtypes", AdvertType.values());
+        request.setAttribute("pricetypes", PriceType.values());
 
         // Zu bearbeitende Aufgabe einlesen
         HttpSession session = request.getSession();
@@ -116,7 +118,10 @@ public class TaskEditServlet extends HttpServlet {
         String taskDueTime = request.getParameter("task_due_time");
         String taskShortText = request.getParameter("task_short_text");
         String taskLongText = request.getParameter("task_long_text");
-
+        String taskAdtype = request.getParameter("task_adtype");
+        String taskPrice = request.getParameter("task_price");
+        String taskPriceType = request.getParameter("task_price_type");
+        
         Task task = this.getRequestedTask(request);
 
         if (taskCategory != null && !taskCategory.trim().isEmpty()) {
@@ -142,14 +147,21 @@ public class TaskEditServlet extends HttpServlet {
             errors.add("Die Uhrzeit muss dem Format hh:mm:ss entsprechen.");
         }
 
-       // try {
-         //   task.setStatus(TaskStatus.valueOf(taskStatus));
-       // } catch (IllegalArgumentException ex) {
-         //   errors.add("Der ausgewählte Status ist nicht vorhanden.");
-        //}
+       try {
+          task.setAdtype(AdvertType.valueOf(taskAdtype));
+        } catch (IllegalArgumentException ex) {
+           errors.add("Die ausgewählte Art ist nicht vorhanden.");
+        }
+       
+       try {
+          task.setPricetype(PriceType.valueOf(taskPriceType));
+        } catch (IllegalArgumentException ex) {
+           errors.add("Die ausgewählte Preisart ist nicht vorhanden.");
+        }
 
-        task.setShortText(taskShortText);
-        task.setLongText(taskLongText);
+       task.setPrice(taskPrice);
+       task.setShortText(taskShortText);
+       task.setLongText(taskLongText);
 
         this.validationBean.validate(task, errors);
 
@@ -248,6 +260,22 @@ public class TaskEditServlet extends HttpServlet {
         values.put("task_owner", new String[]{
             task.getOwner().getUsername()
         });
+        
+        values.put("task_owner_vunname", new String[]{
+            task.getOwner().getVunname()
+        });
+        
+        values.put("task_owner_anschrift", new String[]{
+            task.getOwner().getAnschrift()
+        });
+        
+        values.put("task_owner_plz", new String[]{
+            task.getOwner().getPlz()
+        });
+        
+        values.put("task_owner_ort", new String[] {
+            task.getOwner().getOrt()
+        });
 
         if (task.getCategory() != null) {
             values.put("task_category", new String[]{
@@ -265,6 +293,14 @@ public class TaskEditServlet extends HttpServlet {
 
         values.put("task_adtype", new String[]{
             task.getAdtype().toString()
+        });
+        
+        values.put("task_pricetype", new String[]{
+            task.getPricetype().toString()
+        });
+        
+        values.put("task_price", new String[]{
+            task.getPrice()
         });
 
         values.put("task_short_text", new String[]{

@@ -42,11 +42,32 @@
                 <input type="hidden" name="csrf_token" value="${csrf_token}">
 
                 <%-- Eingabefelder --%>
-                <label for="task_owner">Ersteller</label>
+                <label for="task_owner">Benutzername des Erstellers</label>
                 <div class="side-by-side">
                     <input type="text" name="task_owner" value="${task_form.values["task_owner"][0]}" readonly="readonly">
                 </div>
+                
+                <label for="task_owner_vunname">Name des Erstellers</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_owner_vunname" value="${task_form.values["task_owner_vunname"][0]}" readonly="readonly">
+                </div>
+                
+                <label for="task_owner_anschrift">Straße und Hausnummer</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_owner_anschrift" value="${task_form.values["task_owner_anschrift"][0]}" readonly="readonly">
+                </div>
+                
+                <label for="task_owner_plz">Postleitzahl</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_owner_plz" value="${task_form.values["task_owner_plz"][0]}" readonly="readonly">
+                </div>
 
+                <label for="task_owner_ort">Name des Erstellers</label>
+                <div class="side-by-side">
+                    <input type="text" name="task_owner_ort" value="${task_form.values["task_owner_ort"][0]}" readonly="readonly">
+                </div>
+                
+                
                 <label for="task_category">Kategorie:</label>
                 <div class="side-by-side">
                     <select name="task_category">
@@ -59,24 +80,24 @@
                         </c:forEach>
                     </select>
                 </div>
-                <label for="task_type">Art</label>
+                <label for="task_adtype">Art</label>
                 <div class="side-by-side">
-                    <select name="task_type">
-                        <option value="">Keine Art</option>
-                        <option value="sell">Biete an</option>
-                        <option value="buy">suche</option>
+                    <select name="task_adtype">
+                        <option value="NONE">Keine Art</option>
+                        <option value="OFFER">Biete an</option>
+                        <option value="SEARCH">suche</option>
                     </select>
                 </div>
-                <label for="task_title">Titel</label>
+                <label for="task_short_text">Titel</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_title" value="${task_form.values["task_title"][0]}" ">
+                    <input type="text" name="task_short_text" value="${task_form.values["task_short_text"][0]}" ">
                 </div>
                 
                                 
                    
-                <label for="task_beschreibung">Beschreibung</label>
+                <label for="task_long_text">Beschreibung</label>
                 <div class="side-by-side">
-                    <textarea name="task_beschreibung"><c:out value="${task_form.values['task_beschreibung'][0]}"/></textarea>
+                    <textarea name="task_long_text"><c:out value="${task_form.values['task_long_text'][0]}"/></textarea>
                 </div>
                 
                  </div>
@@ -85,13 +106,12 @@
                     <input type="text" name="task_price" value="${task_form.values["task_price"][0]}" ">
                 </div>
                 
-                                </div>
-                <label for="task_preis">Preisart</label>
+                <label for="task_price_type">Preisart</label>
                 <div class="side-by-side">
-                    <select name="task_preis">
-                        <option value="">Keine Angabe</option>
-                        <option value="vb">Verhandlungsbasis</option>
-                        <option value="fp">Festpreis</option>
+                    <select name="task_price_type">
+                        <option value="NONE">Keine Angabe</option>
+                        <option value="NEGOTIATION">Verhandlungsbasis</option>
+                        <option value="FIX">Festpreis</option>
                     </select>
                 </div>
 
