@@ -70,7 +70,7 @@
                 
                 <label for="task_category">Kategorie:</label>
                 <div class="side-by-side">
-                    <select name="task_category" readonly="${readonly}">
+                    <select name="task_category" ${disabled}>
                         <option value="">Keine Kategorie</option>
 
                         <c:forEach items="${categories}" var="category">
@@ -82,10 +82,12 @@
                 </div>
                 <label for="task_adtype">Art</label>
                 <div class="side-by-side">
-                    <select name="task_adtype">
-                        <option value="NONE"  ${readonlii}>Keine Art</option>
-                        <option value="OFFER"  ${readonlii}>Biete an</option>
-                        <option value="SEARCH"  ${readonlii}>Suche</option>
+                    <select name="task_adtype" ${disabled}>
+                        <c:forEach items="${adtypes}" var="adtype">
+                            <option value="${adtype}" ${task_form.values["task_adtype"][0] == adtype ? 'selected' : ''}>
+                            <c:out value="${adtype.label}"/> 
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
                 <label for="task_short_text">Titel</label>
@@ -106,14 +108,17 @@
                     <input type="text" name="task_price" value="${task_form.values["task_price"][0]}" ${readonlii}>
                 </div>
                 
-                <label for="task_price_type">Preisart</label>
+                <label for="task_pricetype">Preisart</label>
                 <div class="side-by-side">
-                    <select name="task_price_type">
-                        <option value="NONE"  ${readonlii}>Keine Angabe</option>
-                        <option value="NEGOTIATION"  ${readonlii}>Verhandlungsbasis</option>
-                        <option value="FIX"  ${readonlii}>Festpreis</option>
+                    <select name="task_pricetype" ${disabled}>
+                        <c:forEach items="${pricetypes}" var="pricetype">
+                            <option value="${pricetype}" ${task_form.values["task_pricetype"][0] == pricetype ? 'selected' : ''}>
+                            <c:out value="${pricetype.label}"/> 
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
+
 
                 <label for="task_due_date">
                     Erstellt am:

@@ -69,8 +69,8 @@ public class TaskEditServlet extends HttpServlet {
             // daher Formulardaten aus dem Datenbankobjekt übernehmen
             request.setAttribute("task_form", this.createTaskForm(task));
         }
-
         readOnly(request);
+        
         // Anfrage an die JSP weiterleiten
         request.getRequestDispatcher("/WEB-INF/app/task_edit.jsp").forward(request, response);
 
@@ -121,7 +121,7 @@ public class TaskEditServlet extends HttpServlet {
         String taskLongText = request.getParameter("task_long_text");
         String taskAdtype = request.getParameter("task_adtype");
         String taskPrice = request.getParameter("task_price");
-        String taskPriceType = request.getParameter("task_price_type");
+        String taskPriceType = request.getParameter("task_pricetype");
         
         Task task = this.getRequestedTask(request);
 
@@ -134,7 +134,7 @@ public class TaskEditServlet extends HttpServlet {
                 // Ungültige oder keine ID mitgegeben
             }
         }
-
+if (task.getOwner().getUsername().equals(userBean.getCurrentUser().getUsername())) {
         Date dueDate = WebUtils.parseDate(taskDueDate);
         Time dueTime = WebUtils.parseTime(taskDueTime);
         
@@ -171,14 +171,15 @@ public class TaskEditServlet extends HttpServlet {
        
      
         this.validationBean.validate(task, errors);
+}
 
         // Datensatz speichern
-        if (errors.isEmpty()) {
+        if (errors.isEmpty() && task.getOwner().getUsername().equals(userBean.getCurrentUser().getUsername())) {
             this.taskBean.update(task);
         }
     
         // Weiter zur nächsten Seite
-        if (errors.isEmpty()) {
+        if (errors.isEmpty() && task.getOwner().getUsername().equals(userBean.getCurrentUser().getUsername())) {
             // Keine Fehler: Startseite aufrufen
             response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/"));
         } else {
@@ -199,11 +200,14 @@ public class TaskEditServlet extends HttpServlet {
         Task task = this.getRequestedTask(request);
         if (task.getOwner().getUsername().equals(userBean.getCurrentUser().getUsername()) || task.getOwner() == null) {
         
-        request.setAttribute("readonlii","");    
+        request.setAttribute("readonlii","");
+        request.setAttribute("disabled", "");
         }
         else {
             String y = "readonly = 'readonly'";
-        request.setAttribute("readonlii",y);  
+            String z = "disabled = 'true'";
+        request.setAttribute("readonlii",y); 
+        request.setAttribute("disabled", z);
         }
         
     }
@@ -217,12 +221,10 @@ public class TaskEditServlet extends HttpServlet {
      */
     private void deleteTask(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Datensatz löschen
         Task task = this.getRequestedTask(request);
+        if (task.getOwner().getUsername().equals(userBean.getCurrentUser().getUsername())) {
         this.taskBean.delete(task);
-
-        // Zurück zur Übersicht
+        }
         response.sendRedirect(WebUtils.appUrl(request, "/app/tasks/"));
     }
 
