@@ -88,7 +88,7 @@ public class User implements Serializable {
     private String telefon;
     
     @Column (name = "EMAIL")
-    //@Pattern(regexp = "^\\w+@\\w+\\..{2,3} (.{2,3})?$")
+    @Pattern(regexp = "(\\w|\\W)*@(\\w|\\W)*.(\\w|\\W){1,4}", message ="Die E-Mail muss muster@muster.de")
     @NotNull (message = "E-Mail-Adresse darf nicht leer sein.")
     private String email;
 
