@@ -70,6 +70,7 @@ public class TaskEditServlet extends HttpServlet {
             request.setAttribute("task_form", this.createTaskForm(task));
         }
 
+        readOnly(request);
         // Anfrage an die JSP weiterleiten
         request.getRequestDispatcher("/WEB-INF/app/task_edit.jsp").forward(request, response);
 
@@ -138,10 +139,6 @@ public class TaskEditServlet extends HttpServlet {
         Time dueTime = WebUtils.parseTime(taskDueTime);
         
         
-        if (task.getOwner() != userBean.getCurrentUser()) {
-            errors.add("Sie sind nicht der Ersteller dieser Anzeige.");
-        }
-        
         if (dueDate != null) {
             task.setDueDate(dueDate);
         } else {
@@ -197,10 +194,18 @@ public class TaskEditServlet extends HttpServlet {
     }
 
     
-    public boolean isNotOwner (HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-         Task task = this.getRequestedTask(request);
-         return task.getOwner() != userBean.getCurrentUser();
+    
+    public void readOnly (HttpServletRequest request) throws ServletException, IOException {
+        Task task = this.getRequestedTask(request);
+        if (task.getOwner().getUsername().equals(userBean.getCurrentUser().getUsername()) || task.getOwner() == null) {
+        
+        request.setAttribute("readonlii","");    
+        }
+        else {
+            String y = "readonly = 'readonly'";
+        request.setAttribute("readonlii",y);  
+        }
+        
     }
     /**
      * Aufgerufen in doPost: Vorhandene Aufgabe löschen

@@ -70,11 +70,11 @@
                 
                 <label for="task_category">Kategorie:</label>
                 <div class="side-by-side">
-                    <select name="task_category">
+                    <select name="task_category" readonly="${readonly}">
                         <option value="">Keine Kategorie</option>
 
                         <c:forEach items="${categories}" var="category">
-                            <option value="${category.id}" ${task_form.values["task_category"][0] == category.id ? 'selected' : ''}>
+                            <option value="${category.id}" ${task_form.values["task_category"][0] == category.id ? 'selected' : ''}  ${readonlii}>
                                 <c:out value="${category.name}" />
                             </option>
                         </c:forEach>
@@ -83,35 +83,35 @@
                 <label for="task_adtype">Art</label>
                 <div class="side-by-side">
                     <select name="task_adtype">
-                        <option value="NONE">Keine Art</option>
-                        <option value="OFFER">Biete an</option>
-                        <option value="SEARCH">suche</option>
+                        <option value="NONE"  ${readonlii}>Keine Art</option>
+                        <option value="OFFER"  ${readonlii}>Biete an</option>
+                        <option value="SEARCH"  ${readonlii}>Suche</option>
                     </select>
                 </div>
                 <label for="task_short_text">Titel</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_short_text" value="${task_form.values["task_short_text"][0]}" ">
+                    <input type="text" name="task_short_text" value="${task_form.values["task_short_text"][0]}"  ${readonlii}>
                 </div>
                 
                                 
                    
                 <label for="task_long_text">Beschreibung</label>
                 <div class="side-by-side">
-                    <textarea name="task_long_text"><c:out value="${task_form.values['task_long_text'][0]}"/></textarea>
+                    <textarea name="task_long_text"  ${readonlii}><c:out value="${task_form.values['task_long_text'][0]}" /></textarea>
                 </div>
                 
                  </div>
                 <label for="task_price">Preis in €</label>
                 <div class="side-by-side">
-                    <input type="text" name="task_price" value="${task_form.values["task_price"][0]}">
+                    <input type="text" name="task_price" value="${task_form.values["task_price"][0]}" ${readonlii}>
                 </div>
                 
                 <label for="task_price_type">Preisart</label>
                 <div class="side-by-side">
                     <select name="task_price_type">
-                        <option value="NONE">Keine Angabe</option>
-                        <option value="NEGOTIATION">Verhandlungsbasis</option>
-                        <option value="FIX">Festpreis</option>
+                        <option value="NONE"  ${readonlii}>Keine Angabe</option>
+                        <option value="NEGOTIATION"  ${readonlii}>Verhandlungsbasis</option>
+                        <option value="FIX"  ${readonlii}>Festpreis</option>
                     </select>
                 </div>
 
