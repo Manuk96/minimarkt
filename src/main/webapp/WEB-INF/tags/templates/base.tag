@@ -30,7 +30,9 @@
 
         <jsp:invoke fragment="head"/>
     </head>
+    <div id="eigen">
     <body>
+        
         <%-- Kopfbereich --%>
         <header>
             <%-- Titelzeile --%>
@@ -56,8 +58,10 @@
         </header>
 
         <%-- Hauptinhalt der Seite --%>
+          
         <main>    
             <jsp:invoke fragment="content"/>
         </main>
+        </div>  
     </body>
 </html>
